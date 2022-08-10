@@ -1,13 +1,13 @@
 import "./style.css";
-import {apiKey} from './key.js';
+import { apiKey } from "./key.js";
 
 document.querySelector("#app").innerHTML = `
   <h1>Movie Database!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
 `;
+
 //this is my search function that execute when the user clicks the button
 const search = (ev) => {
-  //stopping the default from behaivor
+  //stopping the default behaivor
   const parent = document.querySelector("#movieInfo");
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
@@ -26,10 +26,9 @@ const search = (ev) => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-
       console.log(data.Title);
       console.log(data.Poster);
-      //This is creating the template. how to display the data using html
+      //This is creating the template. How to display the data using html
       const movieTemplate = `
       <div class="movie">
         <h2>${data.Title}</h2>
@@ -39,11 +38,10 @@ const search = (ev) => {
         </div>
       `;
       //attaching the template to the dom. Teaching it where to attach it and thats what the selector is.
-      document 
+      document
         .querySelector("#movieInfo")
         .insertAdjacentHTML("beforeend", movieTemplate);
     });
 };
-//listens for a form submission and when a user clicks on it, executes the search function
-// document.querySelector("#go").addEventListener("click", search);
+//listens for a form submission and when a user clicks on it, it executes the search function
 document.querySelector("form").addEventListener("submit", search);
