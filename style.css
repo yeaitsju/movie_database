@@ -1,8 +1,73 @@
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Copperplate, Papyrus, fantasy;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #055eb7;
   margin-top: 60px;
+  border: 3px solid red;
+  
 }
+
+ 
+
+
+
+body {
+  background-color: rgb(219, 223, 224);
+  background-image:-o-linear-gradient();
+}
+
+/* placeholder="Title of Movie" */
+
+input[type="text"] {
+  width: 20%;
+  padding: 11px px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+input[type=text] {
+  transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+  width: 100%;
+}
+
+input[type="text"]:focus {
+  background-color: lightblue;
+}
+
+input[type="number"] {
+  width: 10%;
+  padding: 11px px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+input[type="number"]:focus {
+  background-color: lightblue;
+}
+#go {
+  border-color: #4caf50;
+  border-width: 3px;
+  color: rgb(12, 12, 12);
+  padding: 1px 23px;
+  text-align: inline;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 16px;
+  margin: 1px 5px;
+  cursor: pointer;
+  
+}
+
+
+
+/* input[type=submit] {
+  padding:5px 15px; 
+  background:rgb(245, 5, 5); 
+  border:0 none;
+  cursor:pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; 
+} */

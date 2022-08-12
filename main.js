@@ -17,6 +17,9 @@ const search = (ev) => {
   const year = document.querySelector("#year").value;
   const plot = document.querySelector("#plot").value;
 
+
+
+
   //template literals (by using backtick) allows us to embed variables within our string
   const url = `https://www.omdbapi.com/?t=${title}&y=${year}&plot=${plot}&apikey=${apiKey}`;
   console.log(url);
