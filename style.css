@@ -60,6 +60,9 @@ input[type="number"]:focus {
   cursor: pointer;
   
 }
+#round {
+  border-radius: 15px 50px 30px 5px;
+}
 
 
 

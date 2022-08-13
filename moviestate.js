@@ -53,11 +53,10 @@ class Store {
   getAllMovies() {
     return this.state.movies;
   }
-  favMovies(){
-    let favMovie = []
+  favMovies() {
+    let favMovie = [];
     let favButton = document.getElementById("favbutton");
-    console.log(favButton)
-    
+    console.log(favButton);
   }
 }
 const store = new Store({ movies: [] });
@@ -133,13 +132,27 @@ document.addEventListener("DOMContentLoaded", () => {
         <p>${data.Year}</p>
         <img src="${data.Poster}">
         <p>${data.Plot}</p>
-        <button id="favbutton" type="submit">fave</button>
-       
-      `;
+    `;
 
+
+    // let favButton = document.getElementById("round");
+    // console.log(favButton);
+    // favButton.addEventListener("click", (e)=>{
+    // let savedfavmovies=[]
+    // let clicked = document.querySelector("input[type=checkbox][name=round]:clicked")
+
+    // if (clicked){
+    //     savedfavMovies.push()
+
+    // }
+    // })
+    //     let favbutton = document.createElement("button");
+    //     favbutton.setAttribute("id", "favbutton");
+    //     favbutton.setAttribute("type", "click");
         let result = document.createTextNode(movieTemplate);
+        // result.appendChild(favbutton);
 
-        console.log(result);
+        // console.log(result);
         document.body.appendChild(result);
 
         movieDisplay.setAttribute("title", title);
@@ -149,6 +162,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.body.appendChild(movieDisplay);
       });
+      let favButton = document.getElementById("round");
+    console.log(favButton);
+    favButton.addEventListener("click", (e)=>{
+    let savedfavmovies=[]
+    
+
+    
+        savedfavMovies.push(movieDisplay)
+        console.log(savedfavmovies);
+
+
+    })
     store.addMovie(store.state, movieDisplay);
   });
 });
