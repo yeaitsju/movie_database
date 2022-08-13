@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <h1>yerr</h1>
+    <form>
+      <label class="control-label" for="title">Title:</label>
+      <input type="text" placeholder="Search.." id="title" required />
+      <br />
+
+      <label class="control-label" for="year">Year:</label>
+      <input
+        type="number"
+        placeholder="Year"
+        minlength="4"
+        maxlength="4"
+        id="year"
+        required="required"
+      />
+
+      <br />
+      <label class="control-label" for="plot">Plot:</label>
+      <select name="plot" id="plot" style="width: 65px">
+        <option value="short">Short</option>
+        <option value="full">Full</option>
+      </select>
+     
+      
+        <button id="button" type="submit">Submit</button>
+   
+        <button id="resbutton" type="submit">reset</button>
+ 
+    </form>
+    
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
