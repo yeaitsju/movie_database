@@ -1,5 +1,5 @@
-import { database } from "./indexed";
-import { movieComment } from "./moviecomments";
+// import { database } from "./indexed";
+
 
 import "./indexed";
 
