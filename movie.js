@@ -33,35 +33,6 @@ constructor (init = {}){
 }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class Movie extends HTMLElement {
     constructor() {
       super();
