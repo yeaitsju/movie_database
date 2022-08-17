@@ -9,15 +9,15 @@ class Store {
     // store is context
     this.subscribers = [];
 
-    // database.then(async (db) => {
-    //   this.db = db;
-    //   let movie = await db.get("moviesToStore", "movie");
+    database.then(async (db) => {
+      this.db = db;
+      let movie = await db.get("moviesToStore", "movie");
 
-    //   if (movie) {
-    //     for(const [key,value] of Object.entries(movie))
-    //     this.set(key,value);
-    //   }
-    // });
+      if (movie) {
+        for(const [key,value] of Object.entries(movie))
+        this.set(key,value);
+      }
+    });
 
     this.state = new Proxy(init, {
       async set(state, key, value) {
