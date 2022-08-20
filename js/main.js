@@ -1,4 +1,4 @@
-import "./style.css";
+import "../style.css";
 import { apiKey } from "./key.js";
 
 document.querySelector("#app").innerHTML = `
