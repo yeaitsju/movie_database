@@ -1,6 +1,9 @@
+import { apiKey } from "./key.js";
 // The "search form" component's job is to retrieve movies based on the information the user types into the form.
 export default class SearchForm {
-  constructor() {}
+  constructor(stateManager) {
+    this.stateManager = stateManager;
+  }
 
   drawForm() {
     // the job of this method is to display a form to the HTML
@@ -17,7 +20,7 @@ export default class SearchForm {
         minlength="4"
         maxlength="4"
         id="year"
-        required="required"
+        
       />
 
       <br />
@@ -32,10 +35,30 @@ export default class SearchForm {
       </div>
     </form>
         `;
+    document.querySelector(".form-container").innerHTML = formTemplate;
+    document.querySelector("form").addEventListener("submit", this.search.bind(this));
   }
 
-  search() {
+  //prevent default method and saying i dont want you to refresh the page
+  search(ev) {
     // the job of this method is to send the search to the cloud (OMDB)
+    ev.preventDefault();
+    console.log("Search!");
+    const title = document.querySelector("#title").value;
+    const year = document.querySelector("#year").value;
+    const plot = document.querySelector("#plot").value;
+
+    //template literals (by using backtick) allows us to embed variables within our string
+    const url = `https://www.omdbapi.com/?t=${title}&y=${year}&plot=${plot}&apikey=${apiKey}`;
+    console.log(url);
+
+    //below is fetching my data from the internet
+    fetch(url)
+      .then((response) => response.json())
+      .then(((data) => {
+        console.log(data);
+        this.stateManager.notify('movie-found', [data]);
+      }).bind(this));
   }
 
   displayResults() {

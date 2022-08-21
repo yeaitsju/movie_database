@@ -1,6 +1,17 @@
 export default class Movie {
-  constructor() {
+  constructor(stateMananger, movieData) {
+    this.stateMananger = stateMananger;
+    this.movieData = movieData;
 
+  }
+
+  attachMovieToDOM(parentElement) {
+    const html = this.toHTML(this.movieData);
+    parentElement.insertAdjacentHTML('beforeend', html);
+
+    // attach an event handler to the .like button:
+    const likeButtonSelector= `#like_${this.movieData.imdbID}`;
+    document.querySelector(likeButtonSelector).addEventListener('click', this.like.bind(this));
   }
 
   toHTML(data) {
@@ -11,15 +22,17 @@ export default class Movie {
         <h2>${data.Title}</h2>
         <p>${data.Year}</p>
         <img src="${data.Poster}">
-        <p>${data.Plot}</p
+        <p>${data.Plot}</p>
+        <button class="like" id="like_${data.imdbID}">Like</button>
         </div>
       `;
       return movieTemplate;
   }
 
-  like () {
+  like (ev) {
     //notifies the state manager that it would like to save the movie to the DB
-
+    console.log('Like: add this data to indexDB!');
+    this.stateMananger.notify('like-requested', this.movieData)
   }
 
   saveComment () {
