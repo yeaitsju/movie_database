@@ -12,17 +12,39 @@ export default class StateManager {
         this.favorites = [];
         this.subscribers = []; // so that components can listen for changes to the state
         this.searchMode = true;
-        this.showNotes = true;
+        this.showNotes = false;
         this.database = new Database();
-
+        this.loadFavorites();
         // listeng so that any time a "like-requested" event happens, it will call the "saveMovieToFavorites" method.
         this.subscribe('like-requested', this.saveMovieToFavorites.bind(this));
+        this.subscribe("movie-found", this.setSearchResults.bind(this));
+        this.subscribe('favorites-loaded', this.setFavorites.bind(this));
+        this.subscribe('show-notes', this.toggleNotes.bind(this));
+        //
+    }
+    setSearchResults(movieDataList) {
+        this.searchResults = movieDataList;
+        this.movies = this.searchResults;
+    }
+    setFavorites(movieDataList) {
+        this.favorites = movieDataList;
+        this.movies = this.favorites;
     }
 
+    toggleNotes(val) {
+        this.showNotes = val;
+        this.notify('redraw', this.movies);
+    }
     // A method to read a user's favorites from IndexedDB when the page first loads.
     loadFavorites() {
-        // reads form the IndexedDB and stores the data to "this.favorites." Then, notifies any interested components.
-
+        // 1. create a callback function that will fire after favorites loaded:
+        const callbackFunction = function (movieDataList) {
+            this.notify('favorites-loaded', movieDataList);
+        };
+        // 2. Invoke the "getAll" method, with the callback function
+        // as an argument. When getALL finsishes loading the favorites,
+        // it will fire the callback function with the favorites.
+        this.database.getAll(callbackFunction.bind(this));
     }
 
     // A method to add a new movie to the user's favorites and save it to IndexedDB.

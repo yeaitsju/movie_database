@@ -2,16 +2,18 @@ export default class Movie {
   constructor(stateMananger, movieData) {
     this.stateMananger = stateMananger;
     this.movieData = movieData;
-
+   
   }
 
   attachMovieToDOM(parentElement) {
     const html = this.toHTML(this.movieData);
-    parentElement.insertAdjacentHTML('beforeend', html);
+    parentElement.insertAdjacentHTML("beforeend", html);
 
     // attach an event handler to the .like button:
-    const likeButtonSelector= `#like_${this.movieData.imdbID}`;
-    document.querySelector(likeButtonSelector).addEventListener('click', this.like.bind(this));
+    const likeButtonSelector = `#like_${this.movieData.imdbID}`;
+    document
+      .querySelector(likeButtonSelector)
+      .addEventListener("click", this.like.bind(this));
   }
 
   toHTML(data) {
@@ -24,58 +26,40 @@ export default class Movie {
         <img src="${data.Poster}">
         <p>${data.Plot}</p>
         <button class="like" id="like_${data.imdbID}">Like</button>
+      
+        ${this.getNotesForm() }
         </div>
       `;
-      return movieTemplate;
+    return movieTemplate;
   }
 
-  like (ev) {
+  getNotesForm() {
+    if(this.stateMananger.showNotes){
+    return `
+    <div>
+    <br>
+    <label>Notes</label>
+    </br>
+    <textarea>${this.movieData.notes || ''}</textarea>
+    </div>
+    `;
+    } else {
+      return '';
+    }
+  }
+
+
+
+  like(ev) {
     //notifies the state manager that it would like to save the movie to the DB
-    console.log('Like: add this data to indexDB!');
-    this.stateMananger.notify('like-requested', this.movieData)
+    console.log("Like: add this data to indexDB!");
+    this.stateMananger.notify("like-requested", this.movieData);
   }
 
-  saveComment () {
+  saveComment() {
     // updates the comment after the user has added some notes
-
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // The search form should change the “search” state
 // // A change in the “search” state should cause a movie lookup, with the results put into the “movies” state
@@ -86,23 +70,19 @@ export default class Movie {
 
 // //
 
-
-
-
-
 // //creating state store
 // class Store {
 //   //creating a constructor and will set the initial state(movie)
 // constructor (init = {}){
 
 //   //create a variable to hold our reference to the store
-//   const self = this 
+//   const self = this
 //   //creating an array to hold the expected changes to the store
-//   this.subscibers = [] 
+//   this.subscibers = []
 //   //this is the stores state which is a proxy we are using the it to store changes to the state.
 //   // It's initialized with the value of init from our constructor, if it's provided.
-//   // The three arguments are the state (the original object), the key being changed, and the value being set(data.Title) 
-//   this.state = new Proxy( 
+//   // The three arguments are the state (the original object), the key being changed, and the value being set(data.Title)
+//   this.state = new Proxy(
 //     init,{
 //       // Set the value on the state. This won't re-trigger the proxy.
 //       set(state,key,value){}
