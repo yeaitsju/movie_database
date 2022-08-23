@@ -14,22 +14,34 @@ export default class Movie {
     document
       .querySelector(likeButtonSelector)
       .addEventListener("click", this.like.bind(this));
+      if (this.stateManager.showNotes) {
+        // attach an event handler to the save button:
+        const saveButtonSelector = `#save_${this.movieData.imdbID}`;
+        console.log(saveButtonSelector);
+        document.querySelector(saveButtonSelector).addEventListener('click', this.save.bind(this));
+    }
+
   }
 
   toHTML(data) {
-    //returns an HTML representation of the JSON data
-    //This is creating the template. How to display the data using html
+    // returns an HTML representation of the JSON data
     const movieTemplate = `
-      <div class="movie">
-        <h2>${data.Title}</h2>
-        <p>${data.Year}</p>
-        <img src="${data.Poster}">
-        <p>${data.Plot}</p>
-        <button class="like" id="like_${data.imdbID}">Like</button>
-      
-        ${this.getNotesForm() }
+        <div id="movie_${this.movieData.imdbID}" class="movie">
+            <div>
+                <img src="${data.Poster}">
+                <div>
+                    <button class="like" id="like_${data.imdbID}">Like</button>
+                </div>
+            </div>
+            <div>
+                <h2>${data.Title}</h2>
+                <p>${data.Year}</p>
+                <p>${data.Plot}</p>
+                ${ this.getNotesForm() }
+            </div>
         </div>
-      `;
+    `;
+
     return movieTemplate;
   }
 
@@ -41,6 +53,7 @@ export default class Movie {
     <label>Notes</label>
     </br>
     <textarea>${this.movieData.notes || ''}</textarea>
+    <button>${this.movieData.imdbID}">Save</button>
     </div>
     `;
     } else {
@@ -55,6 +68,17 @@ export default class Movie {
     console.log("Like: add this data to indexDB!");
     this.stateMananger.notify("like-requested", this.movieData);
   }
+
+  save (ev) {
+    // notifies the state manager that it would like to
+    // save the movie to the DB
+    console.log('Save: add comment to movie!');
+    const notes = document.querySelector(`#comment_${this.movieData.imdbID}`).value;
+    this.movieData.notes = notes;
+    console.log(this.movieData);
+    this.stateManager.notify('save-requested', this.movieData);
+}
+
 
   saveComment() {
     // updates the comment after the user has added some notes
