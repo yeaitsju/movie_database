@@ -14,8 +14,6 @@ export default class Movie {
     document
       .querySelector(likeButtonSelector)
       .addEventListener("click", this.like.bind(this));
-    console.log(this.stateMananger);
-    console.log(this.stateMananger.showNotes);
     if (this.stateMananger.showNotes) {
         // attach an event handler to the save button:
         const saveButtonSelector = `#save_${this.movieData.imdbID}`;
