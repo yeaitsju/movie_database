@@ -14,7 +14,9 @@ export default class Movie {
     document
       .querySelector(likeButtonSelector)
       .addEventListener("click", this.like.bind(this));
-      if (this.stateManager.showNotes) {
+    console.log(this.stateMananger);
+    console.log(this.stateMananger.showNotes);
+    if (this.stateMananger.showNotes) {
         // attach an event handler to the save button:
         const saveButtonSelector = `#save_${this.movieData.imdbID}`;
         console.log(saveButtonSelector);
@@ -52,8 +54,8 @@ export default class Movie {
     <br>
     <label>Notes</label>
     </br>
-    <textarea>${this.movieData.notes || ''}</textarea>
-    <button>${this.movieData.imdbID}">Save</button>
+    <textarea id="comment_${this.movieData.imdbID}">${this.movieData.notes || ''}</textarea>
+    <button id="save_${this.movieData.imdbID}">Save</button>
     </div>
     `;
     } else {
@@ -76,7 +78,7 @@ export default class Movie {
     const notes = document.querySelector(`#comment_${this.movieData.imdbID}`).value;
     this.movieData.notes = notes;
     console.log(this.movieData);
-    this.stateManager.notify('save-requested', this.movieData);
+    this.stateMananger.notify('save-requested', this.movieData);
 }
 
 
